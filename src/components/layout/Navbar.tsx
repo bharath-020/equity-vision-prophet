@@ -41,11 +41,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
-            <NavItem label="Markets" />
-            <NavItem label="Stocks" />
-            <NavItem label="Analysis" />
-            <NavItem label="Predictions" />
-            <NavItem label="News" />
+            <NavItem label="Markets" linkTo="/markets" />
+            <NavItem label="Stocks" linkTo="/stocks" />
+            <NavItem label="Analysis" linkTo="/analysis" />
+            <NavItem label="Predictions" linkTo="/predictions" />
+            <NavItem label="News" linkTo="/news" />
             <Link to="/pricing" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors">
               Pricing
             </Link>
@@ -88,11 +88,11 @@ const Navbar = () => {
       >
         <div className="glass px-4 py-6 space-y-4 shadow-lg mx-4 mt-2 rounded-xl border border-gray-100 dark:border-gray-800">
           <nav className="flex flex-col space-y-4">
-            <MobileNavItem label="Markets" />
-            <MobileNavItem label="Stocks" />
-            <MobileNavItem label="Analysis" />
-            <MobileNavItem label="Predictions" />
-            <MobileNavItem label="News" />
+            <MobileNavItem label="Markets" linkTo="/markets" />
+            <MobileNavItem label="Stocks" linkTo="/stocks" />
+            <MobileNavItem label="Analysis" linkTo="/analysis" />
+            <MobileNavItem label="Predictions" linkTo="/predictions" />
+            <MobileNavItem label="News" linkTo="/news" />
             <Link 
               to="/pricing" 
               className="px-3 py-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors text-base font-medium"
@@ -119,22 +119,25 @@ const Navbar = () => {
   );
 };
 
-const NavItem = ({ label }: { label: string }) => {
+const NavItem = ({ label, linkTo }: { label: string; linkTo: string }) => {
   return (
     <div className="relative group">
-      <button className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors flex items-center">
+      <Link 
+        to={linkTo}
+        className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors flex items-center"
+      >
         {label}
         <ChevronDown className="ml-1 h-4 w-4 opacity-70" />
-      </button>
+      </Link>
       <div className="absolute left-0 w-48 mt-2 origin-top-left bg-white dark:bg-gray-900 rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 glass">
         <div className="py-1">
-          <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
+          <Link to={linkTo} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
             Overview
           </Link>
-          <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
+          <Link to={linkTo} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
             Popular {label}
           </Link>
-          <Link to="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
+          <Link to={linkTo} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
             Recent {label}
           </Link>
         </div>
@@ -143,33 +146,40 @@ const NavItem = ({ label }: { label: string }) => {
   );
 };
 
-const MobileNavItem = ({ label }: { label: string }) => {
+const MobileNavItem = ({ label, linkTo }: { label: string; linkTo: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
     <div>
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors text-base font-medium"
-      >
-        {label}
-        <ChevronDown 
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
-        />
-      </button>
+      <div className="flex items-center justify-between w-full px-3 py-2">
+        <Link
+          to={linkTo}
+          className="text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors text-base font-medium"
+        >
+          {label}
+        </Link>
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors"
+        >
+          <ChevronDown 
+            className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          />
+        </button>
+      </div>
       
       <div 
         className={`mt-1 ml-4 pl-2 border-l border-gray-100 dark:border-gray-800 space-y-1 transition-all duration-200 ease-in-out overflow-hidden ${
           isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <Link to="/" className="block py-2 text-sm text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
+        <Link to={linkTo} className="block py-2 text-sm text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
           Overview
         </Link>
-        <Link to="/" className="block py-2 text-sm text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
+        <Link to={linkTo} className="block py-2 text-sm text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
           Popular {label}
         </Link>
-        <Link to="/" className="block py-2 text-sm text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
+        <Link to={linkTo} className="block py-2 text-sm text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
           Recent {label}
         </Link>
       </div>
