@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { SearchIcon, X, ArrowRight, TrendingUp, TrendingDown } from 'lucide-react';
-import { searchStocks, StockData, getChangeClass } from '@/utils/stockData';
+import { searchStocks, StockData, getChangeClass, stockData } from '@/utils/stockData';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { StockChart } from '../charts/StockChart';
