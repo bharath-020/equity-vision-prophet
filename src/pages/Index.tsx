@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/home/Hero";
 import MarketOverview from "@/components/home/MarketOverview";
 import StockSearch from "@/components/home/StockSearch";
+import Pricing from "@/components/home/Pricing";
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
         <Hero />
         <MarketOverview />
         <StockSearch />
+        <Pricing />
       </main>
       <Footer />
     </div>

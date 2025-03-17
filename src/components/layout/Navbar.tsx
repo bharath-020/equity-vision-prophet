@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronDown, Search, Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ChevronDown, Search, Menu, X, LogIn } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,10 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSignIn = () => {
+    navigate('/sign-in');
+  };
 
   return (
     <header 
@@ -41,6 +46,9 @@ const Navbar = () => {
             <NavItem label="Analysis" />
             <NavItem label="Predictions" />
             <NavItem label="News" />
+            <Link to="/pricing" className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors">
+              Pricing
+            </Link>
           </nav>
           
           <div className="hidden md:flex items-center space-x-6">
@@ -50,7 +58,11 @@ const Navbar = () => {
             >
               <Search size={20} />
             </button>
-            <button className="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transition-all duration-200 hover:bg-primary/90 active:scale-95">
+            <button 
+              onClick={handleSignIn}
+              className="bg-primary text-white px-4 py-2 rounded-full font-medium text-sm transition-all duration-200 hover:bg-primary/90 active:scale-95 flex items-center"
+            >
+              <LogIn className="mr-2 h-4 w-4" />
               Sign In
             </button>
           </div>
@@ -81,13 +93,23 @@ const Navbar = () => {
             <MobileNavItem label="Analysis" />
             <MobileNavItem label="Predictions" />
             <MobileNavItem label="News" />
+            <Link 
+              to="/pricing" 
+              className="px-3 py-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors text-base font-medium"
+            >
+              Pricing
+            </Link>
           </nav>
           <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col space-y-4">
             <button className="flex items-center justify-center w-full text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white transition-colors p-2 rounded-lg">
               <Search className="mr-2" size={18} />
               <span>Search</span>
             </button>
-            <button className="w-full bg-primary text-white px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 hover:bg-primary/90 active:scale-95">
+            <button 
+              className="w-full bg-primary text-white px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 hover:bg-primary/90 active:scale-95 flex items-center justify-center"
+              onClick={handleSignIn}
+            >
+              <LogIn className="mr-2 h-4 w-4" />
               Sign In
             </button>
           </div>
